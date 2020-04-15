@@ -7,13 +7,14 @@ class Customer extends React.Component {
     return (
       <TableRow>
         <TableCell>{this.props.id}</TableCell>
-        <TableCell>
-          <img src={this.props.image} alt="profile" />
-        </TableCell>
-        <TableCell>{this.props.name}</TableCell>
-        <TableCell>{this.props.birthday}</TableCell>
-        <TableCell>{this.props.gender}</TableCell>
-        <TableCell>{this.props.job}</TableCell>
+        <TableCell>{this.props.reservation_date}</TableCell>
+        <TableCell>{this.props.reservation_time}</TableCell>
+        <TableCell>{this.props.reservation_name}</TableCell>
+        <TableCell>{this.props.reservation_personnel}</TableCell>
+        <TableCell>{this.props.phoneNumber}</TableCell>
+        <TableCell>{this.props.choice_Menu}</TableCell>
+        <TableCell>{this.props.Prepayment}</TableCell>
+        <TableCell>{this.props.Prepayment_amout}</TableCell>
       </TableRow>
     );
   }

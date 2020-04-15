@@ -8,6 +8,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import { withStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const styles = (theme) => ({
   root: {
@@ -18,15 +19,19 @@ const styles = (theme) => ({
   table: {
     minWidth: 1080, // 테이블 형태 고정 크기
   },
+  progress: {
+    marginTop: theme.spacing(2),
+  },
 });
 
 class App extends React.Component {
   state = {
-    isLoading: true,
     customers: "",
+    completed: 0,
   };
 
   componentDidMount() {
+    this.timer = setInterval(this.progress, 20); // 0.02초 마다 progress 함수가 실행되게
     this.callApi()
       .then((res) => this.setState({ customers: res }))
       .catch((err) => console.log(err));
@@ -38,6 +43,11 @@ class App extends React.Component {
     return body;
   };
 
+  progress = () => {
+    const { completed } = this.state;
+    this.setState({ completed: completed >= 100 ? 0 : completed + 1 });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -46,29 +56,47 @@ class App extends React.Component {
           <TableHead>
             <TableRow>
               <TableCell>번호</TableCell>
-              <TableCell>이미지</TableCell>
-              <TableCell>이름</TableCell>
-              <TableCell>생년월일</TableCell>
-              <TableCell>성별</TableCell>
-              <TableCell>직업</TableCell>
+              <TableCell>예약날짜</TableCell>
+              <TableCell>예약시간</TableCell>
+              <TableCell>예약자명</TableCell>
+              <TableCell>인원</TableCell>
+              <TableCell>연락처</TableCell>
+              <TableCell>선택메뉴</TableCell>
+              <TableCell>선입금여부</TableCell>
+              <TableCell>예약금</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {this.state.customers
-              ? this.state.customers.map((current) => {
-                  return (
-                    <Customer
-                      key={current.id}
-                      id={current.id}
-                      image={current.image}
-                      name={current.name}
-                      birthday={current.birthday}
-                      gender={current.gender}
-                      job={current.job}
-                    />
-                  );
-                })
-              : console.log("Loading...")}
+            {this.state.customers ? (
+              this.state.customers.map((current) => {
+                console.log(current.reservation_name);
+                return (
+                  <Customer
+                    key={current.id}
+                    id={current.id}
+                    reservation_date={current.reservation_date}
+                    reservation_time={current.reservation_time}
+                    reservation_name={current.reservation_name}
+                    reservation_personnel={current.reservation_personnel}
+                    phoneNumber={current.phoneNumber}
+                    choice_Menu={current.choice_Menu}
+                    Prepayment={current.Prepayment}
+                    Prepayment_amout={current.Prepayment_amout}
+                  />
+                );
+              })
+            ) : (
+              <TableRow>
+                <TableCell colSpan="9" align="center">
+                  <LinearProgress
+                    className={classes.progress}
+                    variant="determinate"
+                    color="secondary"
+                    value={this.state.completed}
+                  />
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </Paper>
