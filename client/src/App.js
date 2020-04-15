@@ -12,7 +12,7 @@ import { withStyles } from "@material-ui/core/styles";
 const styles = (theme) => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     overflowX: "auto",
   },
   table: {
@@ -20,34 +20,24 @@ const styles = (theme) => ({
   },
 });
 
-const customers = [
-  {
-    id: 0,
-    image: "https://placeimg.com/64/64/1",
-    name: "문민종",
-    birthday: 950608,
-    gender: "남자",
-    job: "대학생",
-  },
-  {
-    id: 1,
-    image: "https://placeimg.com/64/64/2",
-    name: "원재문",
-    birthday: 951212,
-    gender: "남자",
-    job: "대학생",
-  },
-  {
-    id: 2,
-    image: "https://placeimg.com/64/64/3",
-    name: "한희정",
-    birthday: 960912,
-    gender: "여자",
-    job: "직장인",
-  },
-];
-
 class App extends React.Component {
+  state = {
+    isLoading: true,
+    customers: "",
+  };
+
+  componentDidMount() {
+    this.callApi()
+      .then((res) => this.setState({ customers: res }))
+      .catch((err) => console.log(err));
+  }
+
+  callApi = async () => {
+    const response = await fetch("/api/customers");
+    const body = await response.json();
+    return body;
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -64,19 +54,21 @@ class App extends React.Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers.map((current) => {
-              return (
-                <Customer
-                  key={current.id}
-                  id={current.id}
-                  image={current.image}
-                  name={current.name}
-                  birthday={current.birthday}
-                  gender={current.gender}
-                  job={current.job}
-                />
-              );
-            })}
+            {this.state.customers
+              ? this.state.customers.map((current) => {
+                  return (
+                    <Customer
+                      key={current.id}
+                      id={current.id}
+                      image={current.image}
+                      name={current.name}
+                      birthday={current.birthday}
+                      gender={current.gender}
+                      job={current.job}
+                    />
+                  );
+                })
+              : console.log("Loading...")}
           </TableBody>
         </Table>
       </Paper>
