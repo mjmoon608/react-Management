@@ -7,14 +7,14 @@ class Customer extends React.Component {
     return (
       <TableRow>
         <TableCell>{this.props.id}</TableCell>
-        <TableCell>{this.props.reservation_date}</TableCell>
-        <TableCell>{this.props.reservation_time}</TableCell>
-        <TableCell>{this.props.reservation_name}</TableCell>
-        <TableCell>{this.props.reservation_personnel}</TableCell>
-        <TableCell>{this.props.phoneNumber}</TableCell>
-        <TableCell>{this.props.choice_Menu}</TableCell>
-        <TableCell>{this.props.Prepayment}</TableCell>
-        <TableCell>{this.props.Prepayment_amout}</TableCell>
+        <TableCell>{this.props.reserv_date}</TableCell>
+        <TableCell>{this.props.reserv_time}</TableCell>
+        <TableCell>{this.props.reserv_name}</TableCell>
+        <TableCell>{this.props.reserv_person}</TableCell>
+        <TableCell>{this.props.phonenumber}</TableCell>
+        <TableCell>{this.props.choice_menu}</TableCell>
+        <TableCell>{this.props.prepayment}</TableCell>
+        <TableCell>{this.props.prepayment_amount}</TableCell>
       </TableRow>
     );
   }

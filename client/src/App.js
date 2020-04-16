@@ -69,19 +69,18 @@ class App extends React.Component {
           <TableBody>
             {this.state.customers ? (
               this.state.customers.map((current) => {
-                console.log(current.reservation_name);
                 return (
                   <Customer
                     key={current.id}
                     id={current.id}
-                    reservation_date={current.reservation_date}
-                    reservation_time={current.reservation_time}
-                    reservation_name={current.reservation_name}
-                    reservation_personnel={current.reservation_personnel}
-                    phoneNumber={current.phoneNumber}
-                    choice_Menu={current.choice_Menu}
-                    Prepayment={current.Prepayment}
-                    Prepayment_amout={current.Prepayment_amout}
+                    reserv_date={current.reserv_date}
+                    reserv_time={current.reserv_time}
+                    reserv_name={current.reserv_name}
+                    reserv_person={current.reserv_person}
+                    phonenumber={current.phonenumber}
+                    choice_menu={current.choice_menu}
+                    prepayment={current.prepayment}
+                    prepayment_amount={current.prepayment_amount}
                   />
                 );
               })
